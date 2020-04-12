@@ -44,6 +44,15 @@ module Ferrum
       expect { browser.at_xpath("//a[text() = 'JS redirect']") }.not_to raise_error
     end
 
+    it "picks option in select" do
+      browser.goto("/ferrum/form")
+      input = browser.at_xpath("//*[@id='form_title']")
+      expect(input.value).to eq "Mrs"
+      input.click
+      input.type("Miss", :Enter)
+      expect(input.value).to eq "Miss"
+    end
+
     context "when the element is not in the viewport" do
       before do
         browser.goto("/ferrum/with_js")
